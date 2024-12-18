@@ -1,4 +1,4 @@
-# fruitdetector Fruit Image Recognition and Calorie Estimation Web Application
+# Fruit Image Recognition and Calorie Estimation Web Application
 Fruit Image Recognition and Calorie Estimation Web Application
 This project is a web-based application that uses Deep Learning and Flask to recognize fruits from images and estimate their calorie content. It leverages the ResNet50 model for image feature extraction, paired with a dataset containing fruit details such as calorie values, condition, and descriptions. Additionally, the application incorporates Spark for potential scalability and cosine similarity to identify the most similar fruit in the dataset.
 
