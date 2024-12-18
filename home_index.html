@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Calorie Detector</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-image: url('C:/Users/ADMIN/Desktop/hehe/fruits.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            animation: moveBackground 30s infinite linear;
+        }
+
+        /* Keyframe animation for background movement */
+        @keyframes moveBackground {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        h1 {
+            color: rgba(253, 2, 2, 0.7);
+            margin-top: 60px;
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            color: #ffcc00;
+            font-size: 32px;
+            margin-top: 20px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #intro {
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            display: inline-block;
+        }
+
+        #uploadForm {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        input[type="file"] {
+            font-size: 16px;
+            padding: 15px;
+            border: 2px solid #fa1900;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            background-color: #fff;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            border-color: #ff3d2e;
+            background-color: rgba(68, 234, 62, 0.9);
+        }
+
+        button {
+            background-color: #fa1900;
+            color: rgba(2, 2, 2, 0.9);
+            font-size: 18px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff3d2e;
+        }
+
+        #result {
+            margin-top: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 90%;
+            display: inline-block;
+            text-align: left;
+        }
+
+        #result p {
+            font-size: 20px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        #uploadedImage {
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            #intro {
+                font-size: 16px;
+            }
+
+            #uploadForm {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Fruit Calorie Detector</h1>
+
+    <!-- Introduction Section -->
+    <div id="intro">
+        <p>Welcome to our Fruit Calorie and Condition Detector! Developed by Kishore D.This innovative platform uses advanced image recognition and machine learning algorithms to help users determine
+            the calorie content and condition of various fruits. Simply upload a fruit image, and our system will analyze
+            it, providing an accurate calorie estimation and quality assessment. Whether you're looking to make informed
+            dietary choices or ensure freshness, our tool offers a convenient, fast, and reliable solution for fruit
+            analysis.</p>
+    </div>
+
+    <!-- Upload Form Section -->
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Detect Calorie</button>
+    </form>
+
+    <!-- Result Section -->
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("uploadForm").onsubmit = async function (e) {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append("file", document.querySelector("input[type=file]").files[0]);
+
+            const response = await fetch("/upload", {
+                method: "POST",
+                body: formData
+            });
+            const result = await response.json();
+
+            if (result.error) {
+                document.getElementById("result").innerHTML = `<p>${result.error}</p>`;
+            } else {
+                document.getElementById("result").innerHTML =
+                        `<p><strong>Predicted Fruit:</strong> ${result.fruit}</p>
+                         <p><strong>Calories per 100g:</strong> ${result.calories_per_100g}</p>
+                         <p><strong>Condition:</strong> ${result.condition}</p>
+                         <p><strong>Description:</strong> ${result.description}</p>
+                         <img id="uploadedImage" src="${result.image_url}" alt="Uploaded Image">`;
+            }
+        }
+    </script>
+</body>
+</html>
