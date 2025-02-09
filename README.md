@@ -73,22 +73,13 @@ Example API response after uploading a fruit image:
 }
 ```
 
----
 
-## Screenshot/GIF showing the sample use of the script
-*home page*
-![homesitefd](https://github.com/user-attachments/assets/e82250ba-c2a2-4504-b0f2-5d54935c7307)
-*output page*
-![outputfd](https://github.com/user-attachments/assets/87c83186-17f0-4507-94a9-f02d8482c220)
-*output page*
-![ouputfd2](https://github.com/user-attachments/assets/c10ad361-4def-43c5-8137-ab0300924f13)
-
----
 
 ## Author Name
 **Kishore D**
 
-GitHub: [simbu-kishore]([https://github.com/simbu-kishore](https://github.com/kiish0765))  
+GitHub: [kishore]([https://github.com/kishore](https://github.com/kiish0765))  
+
 Feel free to connect or contribute to this repository!
 
 --- 
